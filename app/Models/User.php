@@ -4,10 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class FileModel extends Model
+class User extends Model
 {
-    protected $DBGroup          = 'default';
-    protected $table            = 'datafile';
+    protected $table            = 'user';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
@@ -38,16 +37,4 @@ class FileModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-
-    public function getDataByuser()
-    {
-        $result = $this->join('user', 'datafile.id_user = user.id');
-        return $result->orderBy('datafile.id', 'DESC')->findAll();
-    }
-
-    public function getDataByIduser($id)
-    {
-        $result = $this->join('user', 'datafile.id_user = user.id');
-        return $result->where('user.id', $id)->orderBy('datafile.id', 'DESC')->findAll();
-    }
 }

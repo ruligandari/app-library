@@ -4,6 +4,7 @@ namespace App\Controllers\admin;
 
 use App\Controllers\BaseController;
 use App\Models\FileModel;
+use App\Models\User;
 use DateTime;
 
 class dashboardadmincontroller extends BaseController
@@ -11,8 +12,19 @@ class dashboardadmincontroller extends BaseController
     public function index()
     {
         $datafile = new FileModel();
+        $userModel = new User();
+        $cekSession = session()->get('role');
+        if ($cekSession == '1') {
+
+            $dataslip = $datafile->getDataByuser();
+        } else {
+            $id = session()->get('id');
+            $dataslip = $datafile->getDataByIduser($id);
+        }
         $data = [
-            'datafile' => $datafile->findAll()
+            'title' => 'Dashboard',
+            'datafile' => $dataslip,
+            'user' => $userModel->findAll()
         ];
         return view('admin/dashboardadmin', $data);
     }
@@ -25,7 +37,8 @@ class dashboardadmincontroller extends BaseController
         $nama_file = $file->getName();
         $datafile->insert([
             'tanggal' => $tanggal,
-            'nama_file' => $nama_file
+            'nama_file' => $nama_file,
+            'id_user' => $this->request->getVar('id_karyawan'),
         ]);
 
         session()->setFlashdata('success', 'Data Berhasil Diupload');

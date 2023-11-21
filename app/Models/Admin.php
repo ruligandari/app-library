@@ -4,11 +4,10 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class LoginModel extends Model
+class Admin extends Model
 {
-    protected $DBGroup          = 'default';
-    protected $table            = 'login';
-    protected $primaryKey       = 'id_login';
+    protected $table            = 'admin';
+    protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
