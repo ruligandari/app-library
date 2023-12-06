@@ -9,10 +9,16 @@ class UserSeeder extends Seeder
     public function run()
     {
         $data = [
+            [
             'nama' => 'Riki Widiantoro',
             'jabatan' => 'Staff IT',
             'email'    => 'rikiwidiantoro@gmail.com',
-            'password' => password_hash('riki123', PASSWORD_DEFAULT),
+            'password' => password_hash('riki123', PASSWORD_DEFAULT),],
+            [
+            'nama' => 'Riki Widiantoro',
+            'jabatan' => 'Staff IT',
+            'email'    => 'rikiwidiantoro@gmail.com',
+            'password' => password_hash('riki123', PASSWORD_DEFAULT),],
         ];
 
         // insert

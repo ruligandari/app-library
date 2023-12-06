@@ -116,7 +116,14 @@
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
-            </li><!-- End Dashboard Nav -->
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="<?= base_url('pustaka') ?>">
+                    <i class="bi bi-book"></i>
+                    <span>Pustaka</span>
+                </a>
+            </li>
+            <!-- End Dashboard Nav -->
         </ul>
 
     </aside><!-- End Sidebar-->
