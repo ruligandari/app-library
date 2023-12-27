@@ -13,7 +13,7 @@
                         <div class="card-body pb-0">
                             <div class=" d-flex justify-content-between">
                                 <h5 class="card-title">Data Pustaka</h5>
-                                <?php if (session()->get('role') == '1') : ?>
+                                <?php if (session()->get('role') == '1' || session()->get('role') == '3') : ?>
                                     <button type="button" class="btn btn-success mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#basicModal">
                                         Upload File
                                     </button>
@@ -34,11 +34,12 @@
                                             <td><?= $item['nama_file'] ?></td>
                                             <td>
 
-                                                <div class="d-flex justify-content-center">
+                                                <div class="d-flex justify-content-left">
                                                     <a class="btn btn-primary" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">Opsi</a>
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" href="<?= base_url('file/' . $item['nama_file']) ?>" download><i class="bi bi-download"></i>Download</a>
-                                                        <?php if (session()->get('role') == '1') : ?>
+                                                        <?php if (session()->get('role') == '1' || session()->get('role') == '3') : ?>
+                                                            <a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editModal<?= $item['id'] ?>"><i class="bi bi-pencil"></i>Edit</a>
                                                             <a class="dropdown-item text-danger delete-button" data-id="<?= $item['id'] ?>" type="button"><i class="bi bi-trash"></i>Delete</a>
                                                         <?php endif ?>
                                                     </div>
@@ -89,6 +90,47 @@
             </div>
         </div>
     </div>
+    <!-- Edit Modal -->
+    <?php foreach ($datafile as $data) : ?>
+        <div class="modal fade" id="editModal<?= $data['id'] ?>" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Data Pustaka</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" enctype="multipart/form-data" action="<?= base_url("edit-pustaka") ?>">
+                            <div class="row mb-3">
+                                <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="id" value="<?= $data['id'] ?>" id="" hidden>
+                                    <input type="date" name="tanggal" value="<?= $data['tanggal'] ?>" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="inputNumber" class="col-sm-2 col-form-label">File Upload</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" name="file" type="file" id="formFile">
+                                    <input class="form-control" name="old_file" type="text" value="<?= $data['nama_file'] ?>" id="formFile" hidden>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="inputNumber">File Sebelumnya:</label>
+                                <div class="col-sm-10">
+                                    <span> <?= $data['nama_file'] ?> </span>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach ?>
 
 </section>
 <?= $this->endsection(); ?>

@@ -31,6 +31,28 @@ class PustakaController extends BaseController
         $file->move('file_pustaka');
         return redirect()->to('/pustaka');
     }
+    public function update()
+    {
+        $dataPustakaModel = new \App\Models\DataPustakaModel();
+        $id = $this->request->getPost('id');
+        $oldFile = $this->request->getPost('old_file');
+        $file = $this->request->getFile('file');
+        $tanggal = $this->request->getPost('tanggal');
+        $nama_file = $file->getName();
+
+        if ($file == '') {
+            $nama_file = $oldFile;
+        } else {
+            $nama_file = $file->getName();
+            $file->move('file_pustaka', $nama_file);
+        }
+        $data = [
+            'tanggal' => $tanggal,
+            'nama_file' => $nama_file,
+        ];
+        $dataPustakaModel->update($id, $data);
+        return redirect()->to('/pustaka')->with('success', 'Data Berhasil Diupdate');
+    }
 
     public function delete()
     {

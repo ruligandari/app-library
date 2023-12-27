@@ -91,6 +91,17 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
+                        <?php if (session()->get('role') == '1') : ?>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="<?= base_url('kelola-akun') ?>">
+                                    <i class="bi bi-gear"></i>
+                                    <span>Kelola Akun</span>
+                                </a>
+                            </li>
+                        <?php endif ?>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="<?= base_url('logout') ?>">
                                 <i class="bi bi-box-arrow-right"></i>
@@ -110,19 +121,39 @@
     <aside id="sidebar" class="sidebar">
 
         <ul class="sidebar-nav" id="sidebar-nav">
-
-            <li class="nav-item">
-                <a class="nav-link " href="<?= base_url('dashboard') ?>">
-                    <i class="bi bi-grid"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="<?= base_url('pustaka') ?>">
-                    <i class="bi bi-book"></i>
-                    <span>Pustaka</span>
-                </a>
-            </li>
+            <?php
+            if (session()->get('role') == '1' || session()->get('role') == '0') : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('slip-gaji') ?>">
+                        <i class="bi bi-grid"></i>
+                        <span>Slip Gaji</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('pustaka') ?>">
+                        <i class="bi bi-book"></i>
+                        <span>Pustaka</span>
+                    </a>
+                </li>
+            <?php endif ?>
+            <?php
+            if (session()->get('role') == '2') : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('slip-gaji') ?>">
+                        <i class="bi bi-grid"></i>
+                        <span>Slip Gaji</span>
+                    </a>
+                </li>
+            <?php endif ?>
+            <?php
+            if (session()->get('role') == '3') : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('pustaka') ?>">
+                        <i class="bi bi-book"></i>
+                        <span>Pustaka</span>
+                    </a>
+                </li>
+            <?php endif ?>
             <!-- End Dashboard Nav -->
         </ul>
 

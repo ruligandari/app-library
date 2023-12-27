@@ -14,15 +14,16 @@ class dashboardadmincontroller extends BaseController
         $datafile = new FileModel();
         $userModel = new User();
         $cekSession = session()->get('role');
-        if ($cekSession == '1') {
+        if ($cekSession == '1' || $cekSession == '2') {
 
             $dataslip = $datafile->getDataByuser();
         } else {
             $id = session()->get('id');
             $dataslip = $datafile->getDataByIduser($id);
         }
+
         $data = [
-            'title' => 'Dashboard',
+            'title' => 'Slip Gaji',
             'datafile' => $dataslip,
             'user' => $userModel->findAll()
         ];
@@ -42,7 +43,30 @@ class dashboardadmincontroller extends BaseController
         ]);
 
         session()->setFlashdata('success', 'Data Berhasil Diupload');
-        return redirect()->to(base_url('dashboard'));
+        return redirect()->to(base_url('slip-gaji'));
+    }
+    public function update()
+    {
+        $datafile = new FileModel();
+        $id = $this->request->getVar('id');
+        $tanggal = $this->request->getVar('tanggal');
+        $file = $this->request->getFile('file');
+        $oldFile = $this->request->getVar('old_file');
+        if ($file == '') {
+            $nama_file = $oldFile;
+        } else {
+            $nama_file = $file->getRandomName();
+            $file->move('file', $nama_file);
+        }
+        $data = [
+            'tanggal' => $tanggal,
+            'nama_file' => $nama_file,
+            'id_user' => $this->request->getVar('id_karyawan'),
+        ];
+        $datafile->update($id, $data);
+
+        session()->setFlashdata('success', 'Data Berhasil Diupload');
+        return redirect()->to(base_url('slip-gaji'));
     }
     public function delete()
     {

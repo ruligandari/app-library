@@ -38,10 +38,17 @@ class Login extends BaseController
                     'logged_in' => TRUE
                 ];
                 session()->set($data);
-                return redirect()->to(base_url('dashboard'));
+
+                if ($admin['role'] == '1') {
+                    return redirect()->to(base_url('slip-gaji'));
+                } else if ($admin['role'] == '2') {
+                    return redirect()->to(base_url('slip-gaji'));
+                } else if ($admin['role'] == '3') {
+                    return redirect()->to(base_url('pustaka'));
+                }
             } else {
                 // jika password salah
-                session()->setFlashdata('error', 'Password Salah');
+                session()->setFlashdata('error', 'Password Admin Salah');
                 return redirect()->to(base_url('/'));
             }
         } else if ($user) {
@@ -57,10 +64,10 @@ class Login extends BaseController
                     'logged_in' => TRUE
                 ];
                 session()->set($data);
-                return redirect()->to(base_url('dashboard'));
+                return redirect()->to(base_url('slip-gaji'));
             } else {
                 // jika password salah
-                session()->setFlashdata('error', 'Password Salah');
+                session()->setFlashdata('error', 'Password User Salah');
                 return redirect()->to(base_url('/'));
             }
         } else {

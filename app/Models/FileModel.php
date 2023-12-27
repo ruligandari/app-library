@@ -39,10 +39,15 @@ class FileModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getDataByuser()
+
+    public function getDataByUser()
     {
-        $result = $this->join('user', 'datafile.id_user = user.id');
-        return $result->orderBy('datafile.id', 'DESC')->findAll();
+        $result = $this->join('user', 'datafile.id_user = user.id', 'left')
+            ->select('datafile.id as id, user.id as user_id, datafile.tanggal, datafile.nama_file, user.nama',)
+            ->orderBy('datafile.id', 'DESC')
+            ->findAll();
+
+        return $result;
     }
 
     public function getDataByIduser($id)
