@@ -92,10 +92,10 @@
                                     <form class="row g-3 needs-validation" novalidate action="<?= base_url('auth') ?>" method="POST">
 
                                         <div class="col-12">
-                                            <label for="yourUsername" class="form-label">Email</label>
+                                            <label for="yourUsername" class="form-label">Username</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="email" class="form-control" id="email" required>
-                                                <div class="invalid-feedback">Masukan email anda.</div>
+                                                <div class="invalid-feedback">Masukan Username anda.</div>
                                             </div>
                                         </div>
 
